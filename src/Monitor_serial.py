@@ -1,5 +1,5 @@
 import serial, time
-se1 = serial.Serial("com6")
+se1 = serial.Serial("com3")
 se2 = serial.Serial("com7")
 if se1.is_open and se2.is_open:
     print("s1 y s2 estan abiertos")

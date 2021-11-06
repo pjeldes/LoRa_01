@@ -1,21 +1,18 @@
 #include "stm32f1xx_hal.h"
-#include "main.h"
+#include "Config_stm32.h"
 
+
+HAL_GPIO_TogglePin();
 
 int main(void){
-    HAL_Init();
-    SystemClock_Config();
-    SysTick_Config(SystemCoreClock / 1000);
-    Begin_Pin_13();
-    //Iniciar UART_1
-    Begin_Uart_1();
-    unsigned char buffer1[] = "Hola Mundo_\n";
-
+    SysInitDefault();
+    LedPinBluePill_Init();
+    UartOneInit();
+    uint8_t buffer[] = "_Hola_mundo_\n";
     while(1){
-        HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
-        HAL_Delay(100);
-
-        HAL_UART_Transmit(&UART_ONE, buffer1 , sizeof(buffer1) , HAL_MAX_DELAY );
+      Blink_LedBluePill(100);
+      Uart_printf(UartONEConf_s,"buffer Hello\n");
+      //HAL_UART_Transmit(&UartONEConf_s,"_hola_mundo_\n",sizeof(char)*100,HAL_MAX_DELAY);
     }
 
 }
