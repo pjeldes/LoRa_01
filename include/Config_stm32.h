@@ -7,7 +7,9 @@
 RCC_OscInitTypeDef OscConf_s;
 RCC_ClkInitTypeDef ClkConf_s;
 GPIO_InitTypeDef GpioConf_s;
+GPIO_InitTypeDef GpioConfTwo_s;
 UART_HandleTypeDef UartONEConf_s;
+UART_HandleTypeDef UartTwoConf_s;
 
 
 //functions
@@ -26,6 +28,8 @@ void Blink_LedBluePill(int msDelay);
  * bit de parada: 1.
  * */
 void UartOneInit(void);
+
+void UartTwoInit(void);
 
 /** Function: Uart_printf(UART_HandleTypeDef UART,uint8_t *string)
  * Esta funcion imprime usando uart indicado.
