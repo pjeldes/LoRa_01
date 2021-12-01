@@ -22,6 +22,7 @@ int main(void){
       lora_get_param(UartONEConf_s);
       //uint16_t Tam = sizeof(char)*14;
       //HAL_UART_Transmit(&UartTwoConf_s,buffer,Tam,HAL_MAX_DELAY);
+      //otro
     }
 
 }
