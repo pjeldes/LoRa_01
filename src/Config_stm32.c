@@ -19,7 +19,7 @@ void SysOscConfig(void){
 
 void SysClkConfig(void){
     ClkConf_s.ClockType = RCC_CLOCKTYPE_SYSCLK|RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2|RCC_CLOCKTYPE_HCLK;
-    ClkConf_s.SYSCLKSource = SYSTICK_CLKSOURCE_HCLK;
+    ClkConf_s.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;//RCC_SYSCLKSOURCE_HSI
     ClkConf_s.AHBCLKDivider = RCC_SYSCLK_DIV1;
     ClkConf_s.APB1CLKDivider = RCC_HCLK_DIV1;
     ClkConf_s.APB2CLKDivider = RCC_HCLK_DIV1;
@@ -117,7 +117,7 @@ void Uart_printf(UART_HandleTypeDef UART,uint8_t *string){
 
     const uint16_t TAM = sizeof(uint8_t)*10;
     HAL_Delay(10);
-    HAL_UART_Transmit(&UART,string,TAM,0x700);
+    HAL_UART_Transmit(&UART,(uint8_t*)string,TAM,0x700);
 }
 
 void SysInitDefault(void){
