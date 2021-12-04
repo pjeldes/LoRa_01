@@ -1,5 +1,9 @@
 #include "stm32f1xx_hal.h"
 
+#ifndef _CONFIG_STM32_H
+#define _CONFIG_STM32_H
+
+
 #define LEDPIN_BLUEPILL                 GPIO_PIN_13
 #define BAUD_RATE_SET                   9600
 
@@ -41,3 +45,5 @@ void Uart_printf(UART_HandleTypeDef UART,uint8_t *string);
  * Esta funcion inicia el STM32 con una serie de parametros configurados previamente. Solo se usa 1 vez
  **/
 void SysInitDefault(void);
+
+#endif

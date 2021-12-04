@@ -39,6 +39,27 @@
 GPIO_InitTypeDef M1;
 GPIO_InitTypeDef M2;
 
+//typedef E32
+
+/** Estructura creada para configurar un modulo e32 de ebyte.
+ * */
+typedef struct E32_LORA
+{
+    /* data */
+    uint8_t baudios;
+    uint8_t channel;
+    uint8_t patity;
+    uint8_t addres;
+    uint8_t transmission_type;
+    uint8_t air_data_rate;
+    uint8_t IO_drive_mode;
+    uint8_t wake_up_time;
+    uint8_t fec_switch;
+    uint8_t power_dbm;
+
+}E32_LORA_HanldeTypedef;
+
+
 
 //function
 
@@ -51,5 +72,15 @@ void lora_init(void);
  * La funcion lora_sleep_mode(), usa el modulo sleep m1 -> 1, m2 -> 1, este mdo permite la configuracion de parametros, tales como: frecuencia, direccion, canal, tasa de datos por aire, baudios, potencia de transmision.
  * */
 void lora_sleep_mode(void);
+
 void lora_normal_mode(void);
-void lora_set_param(UART_HandleTypeDef *UART);
+
+
+void lora_set_param(UART_HandleTypeDef *UART, E32_LORA_HanldeTypedef E32);
+
+/** Function: lora_get_param es una funcion que se usa para mostrar los parametros actuales del modulo, se muestran en formato Hexadecimal.
+ * @param UART UART por el cual se envian los comandos.
+ * @param UART2 UART por el cual se muestran los datos obtenidos.
+ * @param params Puntero. variable donde se almacenan los datos recibios, su tameño es de 6 bytes.
+ * */
+void lora_get_param(UART_HandleTypeDef UART , UART_HandleTypeDef UART2,uint8_t *params);

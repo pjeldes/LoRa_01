@@ -99,18 +99,18 @@ void UartTwoInit(void){
 
     HAL_GPIO_Init(GPIOA,&GpioConfTwo_s);
 
-    UartONEConf_s.Instance = USART2;
-    UartONEConf_s.Init.BaudRate = 9600;//baudios
-    UartONEConf_s.Init.WordLength = UART_WORDLENGTH_8B;
-    UartONEConf_s.Init.StopBits = UART_STOPBITS_1;
-    UartONEConf_s.Init.Parity = USART_PARITY_NONE;//1 se usa para configurar, segun manual del e32
-    UartONEConf_s.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-    UartONEConf_s.Init.Mode = USART_MODE_TX_RX;
+    UartTwoConf_s.Instance = USART2;
+    UartTwoConf_s.Init.BaudRate = 9600;//baudios
+    UartTwoConf_s.Init.WordLength = UART_WORDLENGTH_8B;
+    UartTwoConf_s.Init.StopBits = UART_STOPBITS_1;
+    UartTwoConf_s.Init.Parity = USART_PARITY_NONE;//1 se usa para configurar, segun manual del e32
+    UartTwoConf_s.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+    UartTwoConf_s.Init.Mode = USART_MODE_TX_RX;
     UartTwoConf_s.Init.OverSampling = UART_OVERSAMPLING_16;
 
     HAL_UART_Init(&UartTwoConf_s);
-    HAL_NVIC_SetPriority(USART2_IRQn, 0, 0);
-    HAL_NVIC_EnableIRQ(USART2_IRQn);
+    //HAL_NVIC_SetPriority(USART2_IRQn, 0, 0);
+    //HAL_NVIC_EnableIRQ(USART2_IRQn);
 }
 
 void Uart_printf(UART_HandleTypeDef UART,uint8_t *string){
