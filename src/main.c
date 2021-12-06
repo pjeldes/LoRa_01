@@ -8,8 +8,9 @@ int main(void){
     LedPinBluePill_Init();
     
     HAL_Delay(10);
-    //usada para recibir parametros del modulo
-    uint8_t params[6];
+
+    //lora message
+    char message[12];
 
     //uart 2
     UartOneInit();
@@ -29,15 +30,21 @@ int main(void){
     E32.wake_up_time = LORA_WIRE_WAKE_UP_TIME;
     E32.power_dbm = LORA_POWER_DBM_14;
 
+    //lora set param
+    lora_sleep_mode();
+    HAL_Delay(10);
+    lora_set_param(&UartONEConf_s,E32);
+    HAL_Delay(10);
+    lora_normal_mode();
+
     while(1){
       Blink_LedBluePill(100);
+      //recive
+      HAL_USART_Receive(&UartONEConf_s,message,sizeof(message),HAL_MAX_DELAY);
+      HAL_Delay(10);
+      Uart_printf(UartTwoConf_s,message);
 
-      //HAL_Delay(100);
-      //HAL_UART_Transmit(&UartONEConf_s,cmd,sizeof(cmd),HAL_MAX_DELAY);
 
-      //lora_set_param(&UartONEConf_s, E32);
-      lora_get_param(UartONEConf_s,UartTwoConf_s,&params);
-      //HAL_UART_Transmit(&UartTwoConf_s,(uint8_t *)"Hola mundo\n",sizeof(uint8_t)*12,0x700);
 
 
     }

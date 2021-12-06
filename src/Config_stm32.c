@@ -115,7 +115,10 @@ void UartTwoInit(void){
 
 void Uart_printf(UART_HandleTypeDef UART,uint8_t *string){
 
-    const uint16_t TAM = sizeof(uint8_t)*10;
+    uint16_t TAM = 0;
+    while(string[TAM] != '\0'){
+        TAM++;
+    }
     HAL_Delay(10);
     HAL_UART_Transmit(&UART,(uint8_t*)string,TAM,0x700);
 }
