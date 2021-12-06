@@ -4,12 +4,12 @@
 
 
 int main(void){
+
+    //diseño para el emisor de mensaje
     SysInitDefault();
     LedPinBluePill_Init();
 
     HAL_Delay(10);
-    //usada para recibir parametros del modulo
-    uint8_t params[6];
 
     //uart
     UartOneInit();
@@ -29,16 +29,20 @@ int main(void){
     E32.wake_up_time = LORA_WIRE_WAKE_UP_TIME;
     E32.power_dbm = LORA_POWER_DBM_14;
 
+    //pongo parametros
+    lora_sleep_mode();
+    HAL_Delay(10);
+    lora_set_param(&UartONEConf_s,E32);
+    HAL_Delay(10);
+    lora_normal_mode();
+
+    //mensaje
+    uint8_t buffer[] = "Mendaje del emisor\n";
+
     while(1){
-      Blink_LedBluePill(100);
-
-      //HAL_Delay(100);
-      //HAL_UART_Transmit(&UartONEConf_s,cmd,sizeof(cmd),HAL_MAX_DELAY);
-
-      lora_set_param(&UartONEConf_s, E32);
-      lora_get_param(UartONEConf_s,UartTwoConf_s,&params);
-      //HAL_UART_Transmit(&UartTwoConf_s,(uint8_t *)"Hola mundo\n",sizeof(uint8_t)*12,0x700);
-
+      Blink_LedBluePill(1000);
+      Uart_printf(UartONEConf_s,buffer);
+      Uart_printf(UartTwoConf_s,buffer);
 
     }
 
