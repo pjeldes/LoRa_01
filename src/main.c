@@ -37,7 +37,7 @@ int main(void){
     lora_normal_mode();
 
     //mensaje
-    uint8_t buffer[] = "Mendaje del emisor\n";
+    uint8_t buffer[] = "Mensaje del emisor\n";
 
     while(1){
       Blink_LedBluePill(1000);
