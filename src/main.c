@@ -1,6 +1,7 @@
 #include "stm32f1xx_hal.h"
 #include "Config_stm32.h"
 #include "lora.h"
+#include <stdlib.h>
 
 
 int main(void){
@@ -10,7 +11,7 @@ int main(void){
     HAL_Delay(10);
 
     //lora message
-    char message[12];
+    unsigned char *message = malloc(12);
 
     //uart 2
     UartOneInit();
@@ -40,10 +41,12 @@ int main(void){
     while(1){
       Blink_LedBluePill(100);
       //recive
-      HAL_USART_Receive(&UartONEConf_s,message,sizeof(message),HAL_MAX_DELAY);
-      HAL_Delay(10);
-      Uart_printf(UartTwoConf_s,message);
-
+      HAL_Delay(1);
+      //HAL_USART_Receive(&UartONEConf_s,message,sizeof(uint8_t)*12,HAL_MAX_DELAY);
+      HAL_UART_Receive(&UartONEConf_s,message,12,HAL_MAX_DELAY);
+      HAL_Delay(1);
+      //Uart_printf(UartTwoConf_s,message);
+      HAL_UART_Transmit(&UartTwoConf_s,message,sizeof(message),HAL_MAX_DELAY);
 
 
 
