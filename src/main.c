@@ -6,12 +6,12 @@
 int main(void){
     SysInitDefault();
     LedPinBluePill_Init();
-    
+
     HAL_Delay(10);
     //usada para recibir parametros del modulo
     uint8_t params[6];
 
-    //uart 2
+    //uart
     UartOneInit();
     UartTwoInit();
 
@@ -35,7 +35,7 @@ int main(void){
       //HAL_Delay(100);
       //HAL_UART_Transmit(&UartONEConf_s,cmd,sizeof(cmd),HAL_MAX_DELAY);
 
-      //lora_set_param(&UartONEConf_s, E32);
+      lora_set_param(&UartONEConf_s, E32);
       lora_get_param(UartONEConf_s,UartTwoConf_s,&params);
       //HAL_UART_Transmit(&UartTwoConf_s,(uint8_t *)"Hola mundo\n",sizeof(uint8_t)*12,0x700);
 
