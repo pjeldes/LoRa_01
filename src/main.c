@@ -2,17 +2,19 @@
 #include "Config_stm32.h"
 #include "lora.h"
 #include <stdlib.h>
+#include <stdbool.h>
 
 
 int main(void){
     //codigo para el receptor
+    //sleep mode low power
     SysInitDefault();
     LedPinBluePill_Init();
     
     HAL_Delay(10);
 
     //lora message
-    unsigned char *message = malloc(20);
+    //unsigned char *message = malloc(20);
 
     //uart 2
     UartOneInit();
@@ -39,15 +41,13 @@ int main(void){
     HAL_Delay(10);
     lora_normal_mode();
   //mensaje del emisor
+    //bool STM_SLEEP_ON = false;
     while(1){
       Blink_LedBluePill(1000);
-      //recive
-      HAL_Delay(1);
-      //HAL_USART_Receive(&UartONEConf_s,message,sizeof(uint8_t)*12,HAL_MAX_DELAY);
-      HAL_UART_Receive(&UartONEConf_s,message,20,HAL_MAX_DELAY);
-      HAL_Delay(1);
-      //Uart_printf(UartTwoConf_s,message);
-      HAL_UART_Transmit(&UartTwoConf_s,message,20,HAL_MAX_DELAY);
+      HAL_Delay(1000);
+      //HAL_SuspendTick();
+      //HAL_PWR_EnterSLEEPMode(PWR_LOWPOWERREGULATOR_ON,PWR_SLEEPENTRY_WFI);
+
 
 
 
