@@ -14,7 +14,7 @@ int main(void){
     HAL_Delay(10);
 
     //lora message
-    //unsigned char *message = malloc(20);
+    unsigned char *message = malloc(20);
 
     //uart 2
     UartOneInit();
@@ -45,9 +45,11 @@ int main(void){
     while(1){
       Blink_LedBluePill(1000);
       HAL_Delay(1000);
-      //HAL_SuspendTick();
-      //HAL_PWR_EnterSLEEPMode(PWR_LOWPOWERREGULATOR_ON,PWR_SLEEPENTRY_WFI);
-
+      //HAL_UART_Receive_IT(&UartONEConf_s,message,20);
+      HAL_SuspendTick();
+      HAL_PWR_EnterSLEEPMode(PWR_LOWPOWERREGULATOR_ON,PWR_SLEEPENTRY_WFI);
+      HAL_UART_Receive(&UartONEConf_s,message,20,HAL_MAX_DELAY);
+      HAL_ResumeTick();
 
 
 
