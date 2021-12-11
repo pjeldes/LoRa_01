@@ -20,6 +20,7 @@ UART_HandleTypeDef UartTwoConf_s;
 
 void SysOscConfig(void);
 void SysClkConfig(void);
+void MspInit(void);
 void LedPinBluePill_Init(void);
 
 /** Function: Blink_led_BluePill(void)

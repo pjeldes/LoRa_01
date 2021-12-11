@@ -10,7 +10,9 @@ void SysOscConfig(void){
     OscConf_s.OscillatorType = RCC_OSCILLATORTYPE_HSI;//oscilador interno
     OscConf_s.HSIState = RCC_HSI_ON;
     OscConf_s.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
-    OscConf_s.PLL.PLLState = RCC_PLL_NONE;
+    OscConf_s.PLL.PLLState = RCC_PLL_ON;
+    OscConf_s.PLL.PLLSource = RCC_PLLSOURCE_HSI_DIV2;
+    OscConf_s.PLL.PLLMUL = RCC_PLL_MUL2;
 
     HAL_RCC_OscConfig(&OscConf_s);
 }
@@ -53,16 +55,17 @@ void UartOneInit(void){
     __HAL_RCC_GPIOA_CLK_ENABLE();
     __HAL_RCC_USART1_CLK_ENABLE();
 
+
     //GPIO to UART1
     GpioConf_s.Pin = GPIO_PIN_9;
     GpioConf_s.Mode = GPIO_MODE_AF_PP;
-    GpioConf_s.Pull = GPIO_NOPULL;
+    //GpioConf_s.Pull = GPIO_NOPULL;
     GpioConf_s.Speed = GPIO_SPEED_FREQ_LOW;
 
     HAL_GPIO_Init(GPIOA,&GpioConf_s);
 
     GpioConf_s.Pin = GPIO_PIN_10;
-    GpioConf_s.Mode = GPIO_MODE_AF_PP;
+    GpioConf_s.Mode = GPIO_MODE_INPUT;
     GpioConf_s.Pull = GPIO_NOPULL;
     GpioConf_s.Speed = GPIO_SPEED_FREQ_LOW;
 
@@ -77,12 +80,18 @@ void UartOneInit(void){
     UartONEConf_s.Init.Mode = USART_MODE_TX_RX;
 
     HAL_UART_Init(&UartONEConf_s);
+    HAL_NVIC_SetPriority(USART1_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(USART1_IRQn);
+    //HAL_UART_Init(&UartONEConf_s);
 }
 
 void UartTwoInit(void){
 
     __HAL_RCC_GPIOA_CLK_ENABLE();
     __HAL_RCC_USART2_CLK_ENABLE();
+    __HAL_RCC_AFIO_CLK_ENABLE();
+    __HAL_RCC_PWR_CLK_ENABLE();
+    __HAL_AFIO_REMAP_SWJ_NOJTAG();
 
     //GPIO to UART2
     GpioConfTwo_s.Pin = GPIO_PIN_2;
@@ -123,6 +132,12 @@ void Uart_printf(UART_HandleTypeDef UART,uint8_t *string){
     HAL_UART_Transmit(&UART,(uint8_t*)string,TAM,0x700);
 }
 
+void MspInit(void){
+    __HAL_RCC_AFIO_CLK_ENABLE();
+    __HAL_RCC_PWR_CLK_ENABLE();
+     __HAL_AFIO_REMAP_SWJ_NOJTAG();
+}
+
 void SysInitDefault(void){
     HAL_Init();
     HAL_Delay(1);
@@ -132,4 +147,5 @@ void SysInitDefault(void){
     HAL_Delay(1);
     SysTick_Config(SystemCoreClock / 10000);
     HAL_Delay(1);
+    MspInit();
 }

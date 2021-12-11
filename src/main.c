@@ -1,8 +1,24 @@
 #include "stm32f1xx_hal.h"
 #include "Config_stm32.h"
 #include "lora.h"
+#include "stm32f1xx_it.h"
+
 #include <stdlib.h>
 #include <stdbool.h>
+#include "stm32f1xx_hal_pwr.h"
+#include "system_stm32f1xx.h"
+
+uint8_t message;
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
+  //Uart_printf(UartTwoConf_s,(uint8_t*)"Interrupt call back\n");
+  HAL_UART_Transmit_IT(&UartTwoConf_s,(uint8_t*)"message\n",1);
+}
+
+// void HAL_UART_RxHalfCpltCallback(UART_HandleTypeDef *huart){
+//   HAL_UART_Receive_IT(&UartONEConf_s,&message,1);
+// }
+
 
 
 int main(void){
@@ -14,7 +30,7 @@ int main(void){
     HAL_Delay(10);
 
     //lora message
-    unsigned char *message = malloc(20);
+    //uint8_t *message = malloc(20);
 
     //uart 2
     UartOneInit();
@@ -40,16 +56,32 @@ int main(void){
     lora_set_param(&UartONEConf_s,E32);
     HAL_Delay(10);
     lora_normal_mode();
+    //HAL_PWR_EnableWakeUpPin(PWR_WAKEUP_PIN1);
   //mensaje del emisor
     //bool STM_SLEEP_ON = false;
     while(1){
-      Blink_LedBluePill(1000);
+      //Blink_LedBluePill(1000);
+      HAL_GPIO_WritePin(GPIOC,GPIO_PIN_13,1);
+      Uart_printf(UartTwoConf_s,(uint8_t*)"Enter sleep mode\n");
+      
       HAL_Delay(1000);
-      //HAL_UART_Receive_IT(&UartONEConf_s,message,20);
       HAL_SuspendTick();
-      HAL_PWR_EnterSLEEPMode(PWR_LOWPOWERREGULATOR_ON,PWR_SLEEPENTRY_WFI);
-      HAL_UART_Receive(&UartONEConf_s,message,20,HAL_MAX_DELAY);
+
+      HAL_GPIO_WritePin(GPIOC,GPIO_PIN_13,0);
+
+      //------------------LOW POWER MODES-------------------------//
+
+      //HAL_PWR_EnterSLEEPMode(PWR_LOWPOWERREGULATOR_ON,PWR_SLEEPENTRY_WFI);
+      //HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON,PWR_STOPENTRY_WFI);
+      //HAL_PWR_EnterSTANDBYMode();
+      
+      
+      //HAL_UART_Receive(&UartONEConf_s,message,20,HAL_MAX_DELAY);
+      HAL_UART_Receive_IT(&UartONEConf_s,&message,20);
+      //HAL_UART_Transmit(&huart1,(uint8_t*)"enter sleep mode\n",20,HAL_MAX_DELAY);
       HAL_ResumeTick();
+      HAL_Delay(1000);
+      Uart_printf(UartTwoConf_s,(uint8_t*)"wake up from sleep mode\n");
 
 
 
@@ -57,10 +89,17 @@ int main(void){
 
 }
 
-void SysTick_Handler(void){
-  // codigo que se ejecuta luego de la interrupcion
-  HAL_IncTick();
-  HAL_SYSTICK_IRQHandler();
 
 
-}
+// void SysTick_Handler(void){
+//   // codigo que se ejecuta luego de la interrupcion
+//   HAL_IncTick();
+//   HAL_SYSTICK_IRQHandler();
+
+// }
+
+// void USART1_IRQHandler(void){
+
+//   HAL_UART_IRQHandler(&UartONEConf_s);
+
+// }
