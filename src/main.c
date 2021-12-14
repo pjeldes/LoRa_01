@@ -13,6 +13,7 @@ int main(void){
 
     //lora message
     unsigned char *message = malloc(20);
+    //uint8_t message[20]= {0};
 
     //uart 2
     UartOneInit();
@@ -39,13 +40,15 @@ int main(void){
     HAL_Delay(10);
     lora_normal_mode();
   //mensaje del emisor
+
     while(1){
       Blink_LedBluePill(1000);
       //recive
-      HAL_Delay(1);
-      //HAL_USART_Receive(&UartONEConf_s,message,sizeof(uint8_t)*12,HAL_MAX_DELAY);
+      //mensaje del emisor\n\0
+      HAL_Delay(10);
+      //HAL_USART_Receive(&UartONEConf_s,message,20,HAL_MAX_DELAY);
       HAL_UART_Receive(&UartONEConf_s,message,20,HAL_MAX_DELAY);
-      HAL_Delay(1);
+      HAL_Delay(10);
       //Uart_printf(UartTwoConf_s,message);
       HAL_UART_Transmit(&UartTwoConf_s,message,20,HAL_MAX_DELAY);
 
