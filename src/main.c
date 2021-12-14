@@ -87,8 +87,8 @@ int main(void){
 
       //------------------LOW POWER MODES-------------------------//
 
-      HAL_PWR_EnterSLEEPMode(PWR_LOWPOWERREGULATOR_ON,PWR_SLEEPENTRY_WFI);
-      //HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON,PWR_STOPENTRY_WFI);
+      //HAL_PWR_EnterSLEEPMode(PWR_LOWPOWERREGULATOR_ON,PWR_SLEEPENTRY_WFI);
+      HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON,PWR_STOPENTRY_WFI);
       //HAL_PWR_EnterSTANDBYMode();
       
       //HAL_UART_Receive_IT(&UartONEConf_s,&message,20);
@@ -97,8 +97,8 @@ int main(void){
       //indica si se suspendio el systick y funciono el writepin
 
       //if stop mode
-      //SysOscConfig();
-      //SysClkConfig();
+      SysOscConfig();
+      SysClkConfig();
       //SysInitDefault();
       HAL_ResumeTick();
 
