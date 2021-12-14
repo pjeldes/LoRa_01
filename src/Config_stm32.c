@@ -44,12 +44,12 @@ void LedPinBluePill_Init(void){
 //------------pin estern iterrupt----------
 void pin_interrupt_init(void){
     GpioConf_s.Pin = GPIO_PIN_5;
-    GpioConf_s.Mode = GPIO_MODE_IT_RISING;
+    GpioConf_s.Mode = GPIO_MODE_IT_FALLING;
     GpioConf_s.Pull = GPIO_NOPULL;
     GpioConf_s.Speed = GPIO_SPEED_FREQ_HIGH;
 
     __HAL_RCC_GPIOA_CLK_ENABLE();
-    __HAL_RCC_GPIOD_CLK_ENABLE();
+    //__HAL_RCC_GPIOD_CLK_ENABLE();
     HAL_GPIO_Init(GPIOA,&GpioConf_s);
     // interrupts
     HAL_NVIC_SetPriority(EXTI9_5_IRQn, 0, 0);

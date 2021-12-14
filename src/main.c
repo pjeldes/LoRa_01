@@ -65,13 +65,13 @@ int main(void){
     while(1){
       //Blink_LedBluePill(1000);
       //HAL_GPIO_WritePin(GPIOC,GPIO_PIN_13,GPIO_PIN_SET);
-      Uart_printf(UartTwoConf_s,(uint8_t*)"Enter sleep mode\n");
+      Uart_printf(UartTwoConf_s,(uint8_t*)"\n Enter sleep mode\n");
       
       HAL_Delay(1000);
       //desbilito interrupciones
-      SysTick->CTRL =TICKNIT;
+      //SysTick->CTRL =TICKNIT;
       //HAL_SYSTICK_IRQHandler()
-      //HAL_SuspendTick();
+      HAL_SuspendTick();
 
       HAL_GPIO_WritePin(GPIOC,GPIO_PIN_13,GPIO_PIN_RESET);
       //HAL_Delay(500);
@@ -101,6 +101,7 @@ int main(void){
       //SysClkConfig();
       //SysInitDefault();
       HAL_ResumeTick();
+      //HAL_NVIC_DisableIRQ(GPIO_PIN_5);
 
       HAL_Delay(1000);
       for(uint8_t i = 0; i<10; i++){
