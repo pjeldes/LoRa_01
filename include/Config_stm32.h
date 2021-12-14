@@ -22,6 +22,7 @@ void SysOscConfig(void);
 void SysClkConfig(void);
 void MspInit(void);
 void LedPinBluePill_Init(void);
+void pin_interrupt_init(void);
 
 /** Function: Blink_led_BluePill(void)
  * Esta funcion logra que el GPIO_PIN_13 parpadee, esta funcion solo debe ser ejecutada en el loop (while(1)).

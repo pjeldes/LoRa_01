@@ -61,7 +61,7 @@ int main(void){
     //bool STM_SLEEP_ON = false;
 
     uint32_t TICKNIT = 0x05;
-    HAL_UART_Receive_IT(&UartONEConf_s,&message,20);
+    //HAL_UART_Receive_IT(&UartONEConf_s,&message,20);
     while(1){
       //Blink_LedBluePill(1000);
       //HAL_GPIO_WritePin(GPIOC,GPIO_PIN_13,GPIO_PIN_SET);
@@ -109,6 +109,8 @@ int main(void){
       }
       
       Uart_printf(UartTwoConf_s,(uint8_t*)"wake up from sleep mode\n");
+      HAL_UART_Receive(&UartONEConf_s,&message,sizeof(message),HAL_MAX_DELAY);
+      Uart_printf(UartTwoConf_s,message);
 
 
 

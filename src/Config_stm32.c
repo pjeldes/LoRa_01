@@ -26,7 +26,7 @@ void SysClkConfig(void){
     ClkConf_s.APB1CLKDivider = RCC_HCLK_DIV1;
     ClkConf_s.APB2CLKDivider = RCC_HCLK_DIV1;
 
-    HAL_RCC_ClockConfig(&ClkConf_s,FLASH_LATENCY_0);
+    HAL_RCC_ClockConfig(&ClkConf_s,FLASH_LATENCY_2);
 }
 
 //-------------Led(pin 13)----------------//
@@ -39,6 +39,21 @@ void LedPinBluePill_Init(void){
 
     __HAL_RCC_GPIOC_CLK_ENABLE();
     HAL_GPIO_Init(GPIOC,&GpioConf_s);
+}
+
+//------------pin estern iterrupt----------
+void pin_interrupt_init(void){
+    GpioConf_s.Pin = GPIO_PIN_5;
+    GpioConf_s.Mode = GPIO_MODE_IT_RISING;
+    GpioConf_s.Pull = GPIO_NOPULL;
+    GpioConf_s.Speed = GPIO_SPEED_FREQ_HIGH;
+
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+    __HAL_RCC_GPIOD_CLK_ENABLE();
+    HAL_GPIO_Init(GPIOA,&GpioConf_s);
+    // interrupts
+    HAL_NVIC_SetPriority(EXTI9_5_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
 }
 
 //this function shoud be used in infynite loop(while (1))
@@ -148,4 +163,5 @@ void SysInitDefault(void){
     SysTick_Config(SystemCoreClock / 10000);
     HAL_Delay(1);
     MspInit();
+    pin_interrupt_init();
 }
