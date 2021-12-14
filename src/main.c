@@ -60,47 +60,29 @@ int main(void){
   //mensaje del emisor
     //bool STM_SLEEP_ON = false;
 
-    uint32_t TICKNIT = 0x05;
     //HAL_UART_Receive_IT(&UartONEConf_s,&message,20);
-    while(1){
-      //Blink_LedBluePill(1000);
-      //HAL_GPIO_WritePin(GPIOC,GPIO_PIN_13,GPIO_PIN_SET);
-      Uart_printf(UartTwoConf_s,(uint8_t*)"Enter sleep mode\n");
-      
+
+
+    //wake up from standby mode
+    if(__HAL_PWR_GET_FLAG(PWR_FLAG_SB) != RESET ){
+      __HAL_PWR_CLEAR_FLAG(PWR_FLAG_SB);
+      Uart_printf(UartTwoConf_s,(uint8_t*)"weke up from standby mode\n");
       HAL_Delay(1000);
-      //desbilito interrupciones
-      SysTick->CTRL =TICKNIT;
-      //HAL_SYSTICK_IRQHandler()
-      //HAL_SuspendTick();
-
-      HAL_GPIO_WritePin(GPIOC,GPIO_PIN_13,GPIO_PIN_RESET);
-      //HAL_Delay(500);
-
-      //indica si se suspendio el systick y funciono el writepin
-      // for(uint8_t i = 0; i<10; i++){
-      //   HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_13);
-      //   HAL_Delay(500);
-      // }
-      asm("nop");
-      HAL_GPIO_WritePin(GPIOC,GPIO_PIN_13,GPIO_PIN_SET);
-      //HAL_Delay(3000);
-
-      //------------------LOW POWER MODES-------------------------//
-
-      //HAL_PWR_EnterSLEEPMode(PWR_LOWPOWERREGULATOR_ON,PWR_SLEEPENTRY_WFI);
-      HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON,PWR_STOPENTRY_WFI);
-      //HAL_PWR_EnterSTANDBYMode();
-      
-      //HAL_UART_Receive_IT(&UartONEConf_s,&message,20);
+      for(uint8_t i = 0; i<10; i++){
+        HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_13);
+        HAL_Delay(500);
+      }
+      HAL_PWR_DisableWakeUpPin(PWR_WAKEUP_PIN1);
       
 
-      //indica si se suspendio el systick y funciono el writepin
+    }
+    __HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU);
+    Uart_printf(UartTwoConf_s,(uint8_t*)"enter standby mode\n");
+    HAL_PWR_EnableWakeUpPin(PWR_WAKEUP_PIN1);
 
-      //if stop mode
-      SysOscConfig();
-      SysClkConfig();
-      //SysInitDefault();
-      HAL_ResumeTick();
+    HAL_PWR_EnterSTANDBYMode();
+    while(1){
+
 
       HAL_Delay(1000);
       for(uint8_t i = 0; i<10; i++){
