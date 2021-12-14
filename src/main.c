@@ -8,12 +8,12 @@
 #include "stm32f1xx_hal_pwr.h"
 #include "system_stm32f1xx.h"
 
-uint8_t message;
+// uint8_t message;
 
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
-  //Uart_printf(UartTwoConf_s,(uint8_t*)"Interrupt call back\n");
-  HAL_UART_Transmit_IT(&UartTwoConf_s,(uint8_t*)"message\n",1);
-}
+// void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
+//   //Uart_printf(UartTwoConf_s,(uint8_t*)"Interrupt call back\n");
+//   HAL_UART_Transmit_IT(&UartTwoConf_s,(uint8_t*)"message\n",1);
+// }
 
 // void HAL_UART_RxHalfCpltCallback(UART_HandleTypeDef *huart){
 //   HAL_UART_Receive_IT(&UartONEConf_s,&message,1);
@@ -30,7 +30,7 @@ int main(void){
     HAL_Delay(10);
 
     //lora message
-    //uint8_t *message = malloc(20);
+    uint8_t *message = malloc(20);
 
     //uart 2
     UartOneInit();
@@ -108,8 +108,8 @@ int main(void){
         HAL_Delay(500);
       }
       
-      Uart_printf(UartTwoConf_s,(uint8_t*)"wake up from sleep mode\n");
-      HAL_UART_Receive(&UartONEConf_s,&message,sizeof(message),HAL_MAX_DELAY);
+      //Uart_printf(UartTwoConf_s,(uint8_t*)"wake up from sleep mode\n");
+      HAL_UART_Receive(&UartONEConf_s,message,20,HAL_MAX_DELAY);
       Uart_printf(UartTwoConf_s,message);
 
 
