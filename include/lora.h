@@ -34,7 +34,7 @@
 #define LORA_POWER_DBM_20                   0b00000000
 #define LORA_POWER_DBM_17                   0b00000001
 #define LORA_POWER_DBM_14                   0b00000010
-#define LORA_POWER_DBM_                     0b00000011
+#define LORA_POWER_DBM_12                   0b00000011
 
 GPIO_InitTypeDef M1;
 GPIO_InitTypeDef M2;
