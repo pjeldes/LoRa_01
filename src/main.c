@@ -56,6 +56,8 @@ int main(void){
     lora_set_param(&UartONEConf_s,E32);
     HAL_Delay(10);
     lora_normal_mode();
+    lora_power_saving_mode();
+   
     //HAL_PWR_EnableWakeUpPin(PWR_WAKEUP_PIN1);
   //mensaje del emisor
     //bool STM_SLEEP_ON = false;
@@ -113,7 +115,7 @@ int main(void){
       HAL_UART_Receive(&UartONEConf_s,message,20,HAL_MAX_DELAY);
       Uart_printf(UartTwoConf_s,message);
 
-
+      
 
     }
 

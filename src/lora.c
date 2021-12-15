@@ -32,6 +32,16 @@ void lora_sleep_mode(void){
     HAL_GPIO_WritePin(GPIOA,M2.Pin,GPIO_PIN_SET);
 }
 
+void lora_power_saving_mode(void){
+    HAL_GPIO_WritePin(GPIOA,M1.Pin,GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOA,M2.Pin,GPIO_PIN_SET);
+}
+
+void lora_wake_up_mode(void){
+    HAL_GPIO_WritePin(GPIOA,M1.Pin,GPIO_PIN_SET);
+    HAL_GPIO_WritePin(GPIOA,M2.Pin,GPIO_PIN_RESET);
+}
+
 void lora_normal_mode(void){
     //low state on pin
     HAL_GPIO_WritePin(GPIOA,M1.Pin,GPIO_PIN_RESET);

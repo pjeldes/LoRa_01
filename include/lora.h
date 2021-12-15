@@ -73,6 +73,12 @@ void lora_init(void);
  * */
 void lora_sleep_mode(void);
 
+void lora_power_saving_mode(void);
+
+/** El modo wake up de los modulos E32 Lora se utilizan para despertar un modulo en modo power saving que funcione como receptor.
+ * */
+void lora_wake_up_mode(void);
+
 void lora_normal_mode(void);
 
 
