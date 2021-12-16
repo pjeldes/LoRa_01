@@ -73,7 +73,11 @@ void lora_init(void);
  * */
 void lora_sleep_mode(void);
 
+void lora_power_saving_mode(void);
+
 void lora_normal_mode(void);
+
+void lora_wake_up_mode(void);
 
 
 void lora_set_param(UART_HandleTypeDef *UART, E32_LORA_HanldeTypedef E32);

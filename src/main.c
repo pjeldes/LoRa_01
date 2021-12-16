@@ -55,7 +55,9 @@ int main(void){
     HAL_Delay(10);
     lora_set_param(&UartONEConf_s,E32);
     HAL_Delay(10);
-    lora_normal_mode();
+    //lora_normal_mode();
+    HAL_Delay(2000);
+    lora_power_saving_mode();
     //HAL_PWR_EnableWakeUpPin(PWR_WAKEUP_PIN1);
   //mensaje del emisor
     //bool STM_SLEEP_ON = false;
@@ -99,6 +101,7 @@ int main(void){
       //if stop mode
       SysOscConfig();
       SysClkConfig();
+      SysTick_Config(SystemCoreClock / 10000);
       //SysInitDefault();
       HAL_ResumeTick();
 
