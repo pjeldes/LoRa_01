@@ -10,9 +10,7 @@ void SysOscConfig(void){
     OscConf_s.OscillatorType = RCC_OSCILLATORTYPE_HSI;//oscilador interno
     OscConf_s.HSIState = RCC_HSI_ON;
     OscConf_s.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
-    OscConf_s.PLL.PLLState = RCC_PLL_ON;
-    OscConf_s.PLL.PLLSource = RCC_PLLSOURCE_HSI_DIV2;
-    OscConf_s.PLL.PLLMUL = RCC_PLL_MUL2;
+    OscConf_s.PLL.PLLState = RCC_PLL_NONE;
 
     HAL_RCC_OscConfig(&OscConf_s);
 }
@@ -22,7 +20,7 @@ void SysOscConfig(void){
 void SysClkConfig(void){
     ClkConf_s.ClockType = RCC_CLOCKTYPE_SYSCLK|RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2|RCC_CLOCKTYPE_HCLK;
     ClkConf_s.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;//RCC_SYSCLKSOURCE_HSI
-    ClkConf_s.AHBCLKDivider = RCC_SYSCLK_DIV1;
+    ClkConf_s.AHBCLKDivider = RCC_SYSCLK_DIV16;
     ClkConf_s.APB1CLKDivider = RCC_HCLK_DIV1;
     ClkConf_s.APB2CLKDivider = RCC_HCLK_DIV1;
 
