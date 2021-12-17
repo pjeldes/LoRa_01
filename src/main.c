@@ -55,7 +55,6 @@ int main(void){
     HAL_Delay(10);
     lora_set_param(&UartONEConf_s,E32);
     HAL_Delay(10);
-    lora_normal_mode();
     lora_power_saving_mode();
    
     //HAL_PWR_EnableWakeUpPin(PWR_WAKEUP_PIN1);
