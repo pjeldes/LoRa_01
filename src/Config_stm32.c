@@ -130,6 +130,6 @@ void SysInitDefault(void){
     HAL_Delay(1);
     SysClkConfig();
     HAL_Delay(1);
-    SysTick_Config(SystemCoreClock / 10000);
+    SysTick_Config(SystemCoreClock / 1000);
     HAL_Delay(1);
 }
