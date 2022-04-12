@@ -1,6 +1,7 @@
 #include "stm32f1xx_hal.h"
 #include "Config_stm32.h"
 #include "lora.h"
+#include "stdlib.h"
 
 
 int main(void){
@@ -14,6 +15,8 @@ int main(void){
     //uart
     UartOneInit();
     UartTwoInit();
+    uint8_t *mes_ok = malloc(20);
+    HAL_StatusTypeDef recibe_status;
 
     //lora
     lora_init();
@@ -42,7 +45,13 @@ int main(void){
     while(1){
       Blink_LedBluePill(1000);
       Uart_printf(UartONEConf_s,buffer);
-      Uart_printf(UartTwoConf_s,buffer);
+      HAL_Delay(1000);
+      recibe_status = HAL_UART_Receive(&UartONEConf_s,mes_ok,20,HAL_MAX_DELAY);
+      if(recibe_status == HAL_OK){
+        Uart_printf(UartTwoConf_s,mes_ok);
+      }else{
+        Uart_printf(UartTwoConf_s,(uint8_t*)"Mensaje no recibido\n");
+      }
 
     }
 
