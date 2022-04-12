@@ -46,7 +46,7 @@ int main(void){
       Blink_LedBluePill(1000);
       Uart_printf(UartONEConf_s,buffer);
       HAL_Delay(1000);
-      recibe_status = HAL_UART_Receive(&UartONEConf_s,mes_ok,20,HAL_MAX_DELAY);
+      recibe_status = HAL_UART_Receive(&UartONEConf_s,mes_ok,20,0x1000);
       if(recibe_status == HAL_OK){
         Uart_printf(UartTwoConf_s,mes_ok);
       }else{
