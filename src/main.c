@@ -1,5 +1,6 @@
 #include "stm32f1xx_hal.h"
 #include "Config_stm32.h"
+#include "stm32f1xx_it.h"
 #include "lora.h"
 #include <stdlib.h>
 
@@ -30,7 +31,7 @@ int main(void){
     E32.IO_drive_mode = LORA_IO_DRIVE_MODE;
     E32.transmission_type = LORA_TRANSPARENT_TRANSMISSION;
     E32.wake_up_time = LORA_WIRE_WAKE_UP_TIME;
-    E32.power_dbm = LORA_POWER_DBM_14;
+    E32.power_dbm = LORA_POWER_DBM_20;
 
     //lora set param
     lora_sleep_mode();
@@ -45,6 +46,9 @@ int main(void){
       HAL_Delay(1);
       //HAL_USART_Receive(&UartONEConf_s,message,sizeof(uint8_t)*12,HAL_MAX_DELAY);
       HAL_UART_Receive(&UartONEConf_s,message,20,HAL_MAX_DELAY);
+      //enviar mensaje al emisor
+      HAL_Delay(1);
+      HAL_UART_Transmit(&UartONEConf_s,(uint8_t*)"Mensaje recivido",20,HAL_MAX_DELAY);
       HAL_Delay(1);
       //Uart_printf(UartTwoConf_s,message);
       HAL_UART_Transmit(&UartTwoConf_s,message,20,HAL_MAX_DELAY);
@@ -54,11 +58,3 @@ int main(void){
     }
 
 }
-
-// void SysTick_Handler(void){
-//   // codigo que se ejecuta luego de la interrupcion
-//   HAL_IncTick();
-//   HAL_SYSTICK_IRQHandler();
-
-
-// }

@@ -57,14 +57,14 @@ void UartOneInit(void){
     GpioConf_s.Pin = GPIO_PIN_9;
     GpioConf_s.Mode = GPIO_MODE_AF_PP;
     GpioConf_s.Pull = GPIO_NOPULL;
-    GpioConf_s.Speed = GPIO_SPEED_FREQ_LOW;
+    GpioConf_s.Speed = GPIO_SPEED_FREQ_HIGH;
 
     HAL_GPIO_Init(GPIOA,&GpioConf_s);
 
     GpioConf_s.Pin = GPIO_PIN_10;
-    GpioConf_s.Mode = GPIO_MODE_AF_PP;
+    GpioConf_s.Mode = GPIO_MODE_INPUT;
     GpioConf_s.Pull = GPIO_NOPULL;
-    GpioConf_s.Speed = GPIO_SPEED_FREQ_LOW;
+    GpioConf_s.Speed = GPIO_SPEED_FREQ_HIGH;
 
     HAL_GPIO_Init(GPIOA,&GpioConf_s);
 
