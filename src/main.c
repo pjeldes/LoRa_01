@@ -51,7 +51,7 @@ int main(void){
       HAL_Delay(1000);
       Trasnmit_mes = HAL_UART_Transmit(&UartONEConf_s,(uint8_t*)"Mensaje recivido\n",20,HAL_MAX_DELAY);
       if(Trasnmit_mes == HAL_OK){
-        Uart_printf(UartTwoConf_s,(uint8_t*)"Mensaje Transmitido");
+        Uart_printf(UartTwoConf_s,(uint8_t*)"Mensaje Transmitido\n");
       }
       HAL_Delay(100);
       //Uart_printf(UartTwoConf_s,message);
