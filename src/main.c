@@ -14,6 +14,7 @@ int main(void){
 
     //lora message
     unsigned char *message = malloc(20);
+    HAL_StatusTypeDef Trasnmit_mes;
 
     //uart 2
     UartOneInit();
@@ -47,9 +48,12 @@ int main(void){
       //HAL_USART_Receive(&UartONEConf_s,message,sizeof(uint8_t)*12,HAL_MAX_DELAY);
       HAL_UART_Receive(&UartONEConf_s,message,20,HAL_MAX_DELAY);
       //enviar mensaje al emisor
-      HAL_Delay(1);
-      HAL_UART_Transmit(&UartONEConf_s,(uint8_t*)"Mensaje recivido",20,HAL_MAX_DELAY);
-      HAL_Delay(1);
+      HAL_Delay(1000);
+      Trasnmit_mes = HAL_UART_Transmit(&UartONEConf_s,(uint8_t*)"Mensaje recivido\n",20,HAL_MAX_DELAY);
+      if(Trasnmit_mes == HAL_OK){
+        Uart_printf(UartTwoConf_s,(uint8_t*)"Mensaje Transmitido");
+      }
+      HAL_Delay(100);
       //Uart_printf(UartTwoConf_s,message);
       HAL_UART_Transmit(&UartTwoConf_s,message,20,HAL_MAX_DELAY);
 
