@@ -55,10 +55,10 @@ int main(void){
 
 }
 
-void SysTick_Handler(void){
-  // codigo que se ejecuta luego de la interrupcion
-  HAL_IncTick();
-  HAL_SYSTICK_IRQHandler();
+// void SysTick_Handler(void){
+//   // codigo que se ejecuta luego de la interrupcion
+//   HAL_IncTick();
+//   HAL_SYSTICK_IRQHandler();
 
 
-}
+// }
