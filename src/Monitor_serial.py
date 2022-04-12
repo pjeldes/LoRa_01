@@ -1,5 +1,5 @@
 import serial, time
-se1 = serial.Serial("com5")
+se1 = serial.Serial("/dev/ttys0")
 ##se2 = serial.Serial("com7")
 read = bytearray()
 if se1.is_open:
