@@ -16,25 +16,31 @@
 #define LORA_PARITY_8O1                     0b01000000
 #define LORA_PARITY_8E1                     0b10000000 
 
-
 #define LORA_BAUDIOS_4800                   0b00010000
 #define LORA_BAUDIOS_9600                   0b00011000
 #define LORA_BAUDIOS_115200                 0b00111000
 
-#define LORA_AIR_DATA_RATE_2_4_K            0b00000010
+#define LORA_AIR_DATA_RATE_0_3_K            0b00000000
 #define LORA_AIR_DATA_RATE_1_2_K            0b00000001
+#define LORA_AIR_DATA_RATE_2_4_K            0b00000010
+#define LORA_AIR_DATA_RATE_4_8_K            0b00000011
+#define LORA_AIR_DATA_RATE_9_6_K            0b00000100
+#define LORA_AIR_DATA_RATE_19_2_K           0b00000101
+
 
 
 //byte 5
-#define LORA_TRANSPARENT_TRANSMISSION       0b00000000
-#define LORA_IO_DRIVE_MODE                  0b01000000
-#define LORA_WIRE_WAKE_UP_TIME              0b00000000 
-#define LORA_FEC_SWITCH                     0b00000100
+#define LORA_TRANSPARENT_TRANSMISSION_OFF       0b00000000
+#define LORA_TRANSPARENT_TRANSMISSION_ON        0b10000000
+#define LORA_IO_DRIVE_MODE_ON                   0b01000000
+#define LORA_WIRE_WAKE_UP_TIME_250ms            0b00000000 
+#define LORA_FEC_SWITCH_OFF                     0b00000100
+#define LORA_FEC_SWITCH_ON                      0b00000000
 
-#define LORA_POWER_DBM_20                   0b00000000
-#define LORA_POWER_DBM_17                   0b00000001
-#define LORA_POWER_DBM_14                   0b00000010
-#define LORA_POWER_DBM_                     0b00000011
+#define LORA_POWER_DBM_20                       0b00000000
+#define LORA_POWER_DBM_17                       0b00000001
+#define LORA_POWER_DBM_14                       0b00000010
+#define LORA_POWER_DBM_10                       0b00000011
 
 GPIO_InitTypeDef M1;
 GPIO_InitTypeDef M2;
