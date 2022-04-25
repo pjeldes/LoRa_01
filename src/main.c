@@ -33,7 +33,7 @@ int main(void){
     E32.IO_drive_mode = LORA_IO_DRIVE_MODE_ON;
     E32.transmission_type = LORA_TRANSPARENT_TRANSMISSION_OFF;
     E32.wake_up_time = LORA_WIRE_WAKE_UP_TIME_250ms;
-    E32.power_dbm = LORA_POWER_DBM_14;
+    E32.power_dbm = LORA_POWER_DBM_20;
 
     //lora set param
     lora_sleep_mode();
