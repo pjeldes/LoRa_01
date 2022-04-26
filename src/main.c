@@ -34,9 +34,9 @@ int main(void){
 
     //pongo parametros
     lora_sleep_mode();
-    HAL_Delay(10);
+    HAL_Delay(30);
     lora_set_param(&UartONEConf_s,E32);
-    HAL_Delay(10);
+    HAL_Delay(30);
     lora_normal_mode();
 
     //mensaje
