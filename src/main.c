@@ -53,7 +53,7 @@ int main(void){
       // for(uint8_t k = 0; k < 5; k++){
       //   HAL_GPIO_WritePin(GPIOC,GPIO_PIN_13,0);//encendido
       //   //HAL_Delay(1000);
-      //   Trasnmit_mes = HAL_UART_Transmit(&UartONEConf_s,mensaje_prueba,58,HAL_MAX_DELAY);
+      //   Trasnmit_mes = HAL_UART_Transmit(&UartONEConf_s,mensaje_prueba,58,HAL_MAX_D50ELAY);
       //   HAL_Delay(2000);
       //   HAL_GPIO_WritePin(GPIOC,GPIO_PIN_13,1);
       // }
