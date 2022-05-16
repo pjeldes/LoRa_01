@@ -28,7 +28,7 @@ int main(void){
     E32.channel = LORA_CHANEL;
     E32.baudios = LORA_BAUDIOS_9600;
     E32.patity = LORA_PARITY_8N1;
-    E32.air_data_rate = LORA_AIR_DATA_RATE_19_2_K;
+    E32.air_data_rate = LORA_AIR_DATA_RATE_1_2_K;
     E32.fec_switch = LORA_FEC_SWITCH_OFF;
     E32.IO_drive_mode = LORA_IO_DRIVE_MODE_ON;
     E32.transmission_type = LORA_TRANSPARENT_TRANSMISSION_OFF;
