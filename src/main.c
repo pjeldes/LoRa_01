@@ -50,7 +50,8 @@ int main(void){
     lora_set_param(&UartONEConf_s,E32);
     HAL_Delay(30);
 
-    lora_normal_mode();
+    //lora_normal_mode();
+    lora_power_saving_mode();
   //mensaje del emisor
 
     while(1){
@@ -60,9 +61,6 @@ int main(void){
       //recive
 
       //mensaje del emisor\n\0
-      HAL_Delay(10);
-      //HAL_USART_Receive(&UartONEConf_s,message,20,HAL_MAX_DELAY);
-      HAL_UART_Receive(&UartONEConf_s,message,20,HAL_MAX_DELAY);
       HAL_Delay(10);
       //Uart_printf(UartTwoConf_s,message);
 

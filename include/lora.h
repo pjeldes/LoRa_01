@@ -86,6 +86,8 @@ void lora_init(void);
  * */
 void lora_sleep_mode(void);
 
+void lora_power_saving_mode(void);
+
 void lora_normal_mode(void);
 
 
