@@ -15,6 +15,8 @@ GPIO_InitTypeDef GpioConfTwo_s;
 UART_HandleTypeDef UartONEConf_s;
 UART_HandleTypeDef UartTwoConf_s;
 
+TIM_HandleTypeDef htim3;
+
 
 //functions
 
@@ -45,5 +47,6 @@ void Uart_printf(UART_HandleTypeDef UART,uint8_t *string);
  * Esta funcion inicia el STM32 con una serie de parametros configurados previamente. Solo se usa 1 vez
  **/
 void SysInitDefault(void);
+void tim3(void);
 
 #endif

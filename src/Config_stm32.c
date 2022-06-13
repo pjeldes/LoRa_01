@@ -10,7 +10,9 @@ void SysOscConfig(void){
     OscConf_s.OscillatorType = RCC_OSCILLATORTYPE_HSI;//oscilador interno
     OscConf_s.HSIState = RCC_HSI_ON;
     OscConf_s.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
-    OscConf_s.PLL.PLLState = RCC_PLL_NONE;
+    OscConf_s.PLL.PLLState = RCC_PLL_ON;
+    OscConf_s.PLL.PLLSource = RCC_PLLSOURCE_HSI_DIV2;
+    OscConf_s.PLL.PLLMUL = RCC_PLL_MUL2;//4MxPLL_MUl
 
     HAL_RCC_OscConfig(&OscConf_s);
 }
@@ -19,8 +21,8 @@ void SysOscConfig(void){
 
 void SysClkConfig(void){
     ClkConf_s.ClockType = RCC_CLOCKTYPE_SYSCLK|RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2|RCC_CLOCKTYPE_HCLK;
-    ClkConf_s.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;//RCC_SYSCLKSOURCE_HSI
-    ClkConf_s.AHBCLKDivider = RCC_SYSCLK_DIV1;
+    ClkConf_s.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;//RCC_SYSCLKSOURCE_HSI
+    ClkConf_s.AHBCLKDivider = RCC_SYSCLK_DIV8;
     ClkConf_s.APB1CLKDivider = RCC_HCLK_DIV1;
     ClkConf_s.APB2CLKDivider = RCC_HCLK_DIV1;
 
@@ -34,9 +36,10 @@ void LedPinBluePill_Init(void){
     GpioConf_s.Mode = GPIO_MODE_OUTPUT_PP;
     GpioConf_s.Pull = GPIO_PULLUP;
     GpioConf_s.Speed = GPIO_SPEED_FREQ_LOW;
-
+   
     __HAL_RCC_GPIOC_CLK_ENABLE();
     HAL_GPIO_Init(GPIOC,&GpioConf_s);
+     HAL_GPIO_WritePin(GPIOC,GPIO_PIN_13,1);
 }
 
 //this function shoud be used in infynite loop(while (1))
@@ -132,4 +135,32 @@ void SysInitDefault(void){
     HAL_Delay(1);
     SysTick_Config(SystemCoreClock / 1000);
     HAL_Delay(1);
+}
+
+void tim3(void){
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+
+  htim3.Instance = TIM3;
+  htim3.Init.Prescaler = 0;
+  htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim3.Init.Period = 60000;
+  htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
+  {
+    //Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim3, &sClockSourceConfig) != HAL_OK)
+  {
+    //Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim3, &sMasterConfig) != HAL_OK)
+  {
+    //Error_Handler();
+  }
 }
